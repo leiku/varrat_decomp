@@ -45,7 +45,7 @@ source("fig_demon_application.R")
 ########## Fig 4. lineplot for values averaged across short- and long-timescales  #####
 #input: "result_basic.RDS"
 #output: "fig_lineplot_average.tif"
-source("main_plot_lineplot_timescale_averaged.R")
+source("fig_lineplot_averaged.R")
 
 
 ########## Fig 5. quantile plot for timescale-specific variance ratio  ################
@@ -61,10 +61,10 @@ source("fig_timescale_quantile.R")
 source("fig_timescale_quantile.R")
 
 
-#Fig S. timescale-specific variance, com, and com_ip                   ################ 
+#Fig SI. timescale-specific variance, com, and com_ip                   ################ 
 #input: "result_basic.RDS"
 #output: 6 figures ("fig_decomposed_classic_",names.sites[ii],"_sorted_vrf.pdf")
-source("fig_timescale_decomposed.R")  
+source("fig_timescale_decomposed.R") 
 
 
 
