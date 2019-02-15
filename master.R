@@ -57,8 +57,8 @@ source("fig_timescale_quantile.R")
 
 #########  Fig 6. timescale-decomposed versus classic variance ratio    ###############
 #input: "result_basic.RDS"
-#output: "fig_timescale_quantile.tif"
-source("fig_timescale_quantile.R")
+#output: "fig_new_vs_classic.tif"
+source("fig_new_vs_classic.R")
 
 
 #Fig SI. timescale-specific variance, com, and com_ip                   ################ 
