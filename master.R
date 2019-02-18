@@ -1,9 +1,10 @@
 #Workflow for the manuscript "Decomposition of the variance ratio illuminates timescale-specific population and community variability"
-#coded by Lei Zhao (lei.zhao@cau.edu.cn)
+#coded by Lei Zhao (lei.zhao@cau.edu.cn), Daniel Reuman (d294r143@ku.edu), 
+#         Lauren Hallett (hallett@uoregon.edu), and Shaopeng Wang (shaopeng.wang@pku.edu.cn)
 
 ########### Preparing ##########
 rm(list=ls())
-dir.create("Figs")   #creat a folder to store the figs
+dir.create("Figs", showWarnings = FALSE)   #creat a folder to store the figs
 
 #install the following packages if you haven't; skip if you have
 #install.packages("devtools")
@@ -17,13 +18,13 @@ library("devtools")
 install_github("reumandc/tsvr")
 
 
-#################  Fig 1. timeseries of the example (by Daniel Reuman)  #################
+#################  Fig 1. timeseries of the example   #################
 #input: null
 #output: "fig_example_timeseries.tif"
 #        "Data_example_timeseries.RDS"
 source("fig_example_timeseries.R")
 
-################   get clean data (by Lauren Hallett)                  ##################
+################   get clean data (by )                  ##################
 #input: csv file from google drive
 #output: "Data_grassland.RDS"
 source("dataprep_2012synthesisdat.R")
