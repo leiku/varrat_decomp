@@ -6,7 +6,7 @@ allsites <- readRDS("Data_grassland.RDS")  # input data
 # remove the extreme point for jrn ("JRN_NPP quadrat_BASN_7")
 i.omit <- 46
 allsites[[10]] <- allsites[[5]][-i.omit]  #JRN
-names(allsites)[10] <- "jrn.omit"
+names(allsites)[10] <- "jrn_omit"
 
 ii <- c(4, 6, 3, 10, 7, 8, 5)  #index of sites used in the study (sorted by the average of classic vr)
 names.sites <- names(allsites)[ii]
