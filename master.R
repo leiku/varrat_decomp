@@ -1,10 +1,23 @@
-#Workflow for the manuscript "Decomposition of the variance ratio illuminates timescale-specific population and community variability"
-#coded by Lei Zhao (lei.zhao@cau.edu.cn), Daniel Reuman (d294r143@ku.edu), 
-#         Lauren Hallett (hallett@uoregon.edu), and Shaopeng Wang (shaopeng.wang@pku.edu.cn)
+#Workflow for the manuscript "Decomposition of the variance ratio illuminates 
+#timescale-specific population and community variability"
+#
+#Coded by Lei Zhao (lei.zhao@cau.edu.cn), Daniel Reuman (d294r143@ku.edu), 
+#Lauren Hallett (hallett@uoregon.edu), and Shaopeng Wang (shaopeng.wang@pku.edu.cn)
+#
+#See the README.md
 
 ########### Preparing ##########
 rm(list=ls())
-dir.create("Figs", showWarnings = FALSE)   #creat a folder to store the figs
+dir.create("Figs", showWarnings = FALSE)   #create a folder to store the figs
+
+#checkpoint package - when present, uses the package, sets up a local
+#installation of all packages as they existed on the date specified, in the
+#same directory as this file. 
+library(checkpoint)
+if (!dir.exists("./.checkpoint/")){
+  dir.create("./.checkpoint/")
+}
+checkpoint("2019-01-01",checkpointLocation = "./")
 
 #install the following packages if you haven't; skip if you have
 #install.packages("devtools")
@@ -14,9 +27,9 @@ dir.create("Figs", showWarnings = FALSE)   #creat a folder to store the figs
 #install.packages("scales")
 #install.packages("normtest")
 
-library("devtools")
-install_github("reumandc/tsvr")
-
+withr::with_libpaths(new=.libPaths()[1],
+                     devtools::install_github(repo="reumandc/tsvr",ref="master",force=TRUE))
+library(tsvr)
 
 #################  Fig 1. timeseries of the example   #################
 #input: null
