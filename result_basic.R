@@ -1,5 +1,4 @@
 rm(list=ls())
-library(tsvr)
 
 allsites <- readRDS("Data_grassland.RDS")  # input data
 

@@ -1,6 +1,5 @@
 ## Fig. 2 ##
 rm(list=ls())
-library(tsvr)
 
 tiff("Figs/fig_demon_application.tif", 
      width=11, height=6, units="in",res=600,compression = "lzw")
