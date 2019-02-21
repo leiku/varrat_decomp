@@ -1,0 +1,260 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsthm}
+
+\newcommand{\var}{{\operatorname{var}}}
+\newcommand{\cov}{{\operatorname{cov}}}
+\newcommand{\cor}{{\operatorname{cor}}}
+\newcommand{\E}{{\operatorname{E}}}
+\newcommand{\mean}{{\operatorname{mean}}}
+
+\newcommand{\CV}{{\operatorname{CV}}}
+\newcommand{\com}{{\operatorname{com}}}
+\newcommand{\comip}{{\operatorname{com\_ip}}}
+\newcommand{\td}{{\operatorname{td}}}
+\newcommand{\ts}{{\operatorname{ts}}}
+
+\renewcommand{\qedsymbol}{\rule{.7em}{.7em}}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\newtheorem{theorem}{Theorem}[]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+
+\begin{document}
+
+\title{A timescale-specific variance ratio in theory and practice}
+\author{Zhao, Wang, Cottingham, Hallett, Rypel, Reuman}
+\date{}
+\maketitle
+
+\section{Details of spectral methods}\label{sec:spec}
+\noindent Dan to fill this in
+
+\section{Details of the theory}
+\noindent We recapitulate definitions from the main text. Let $x_i(t)$ be population 
+density or biomass time series for times $t=1,\ldots,T$ and taxa $i=1,\ldots,S$, and 
+let $\mu_i=\mean(x_i (t))$, $v_{ij}=\cov(x_i (t),y_j (t))$, $x_{\text{tot}} (t)=\sum_i x_i(t)$, $\mu_{\text{tot}}=\mean(x_{\text{tot}}(t))=\sum_i \mu_i$, and $v_{\text{tot}}=\var(x_{\text{tot}}(t))=\sum_{i,j}v_{ij}$. Then, using the definitions of spectral quantities provided in Appendix \ref{sec:spec}, we define
+\begin{align}
+\text{CV}_{\text{com}}^2 &= \frac{v_{\text{tot}}}{\mu_{\text{tot}}^2}=\frac{\sum_{i,j}v_{ij}}{(\sum_i \mu_i)^2},\\
+\text{CV}_{\text{com\_ip}}^2 &=\frac{\sum_{i}v_{ii}}{(\sum_i \mu_i)^2}
+=\frac{\sum_{i}v_{ii}}{\mu_{\text{tot}}^2},\\
+\varphi &= \frac{v_{\text{tot}}}{\sum_i v_{ii}}
+=\frac{\sum_{i,j}v_{ij}}{\sum_i v_{ii}}, \\
+\text{CV}_{\text{com}}^2(\sigma) &= \frac{s_{\text{tt}}(\sigma)}{\mu_{\text{tot}}^2}
+=\frac{\sum_{i,j} s_{ij}(\sigma)}{(\sum_i \mu_{i})^2},\\
+\text{CV}_{\text{com\_ip}}^2(\sigma) &= \frac{\sum_i s_{ii}(\sigma)}{(\sum_i \mu_{i})^2}
+=\frac{\sum_{i}s_{ii}(\sigma)}{\mu_{\text{tot}}^2},\\
+\varphi_{\text{ts}}(\sigma) &= \frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)}
+=\frac{\sum_{i,j}s_{ij}(\sigma)}{\sum_i s_{ii}(\sigma)},\\
+w(\sigma) &= \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}},\\
+\overline{\varphi_{\text{ts}}}(\Omega) &= \frac{\sum_{\sigma \in \Omega} \varphi_{\text{ts}}(\sigma) w(\sigma)}
+{\sum_{\sigma \in \Omega} w(\sigma)}.
+\end{align}
+The quantities $\mu_{\text{tot}}^2$, $\sum_i v_{ii}$ and 
+$\sum_i s_{ii}(\sigma)$ appearing in denominators above 
+should typically be nonzero for all real data sets. 
+
+The above definitions lead to two theorems as follows:
+\begin{theorem}\label{thm:freqdecom}
+Assuming $\mu_{\text{tot}}$ and $\sum_i v_{ii}$ are nonzero, the following timescale decompositions hold exactly, where summations are over the
+timescales $\sigma=\frac{T}{T-1},\frac{T}{T-2},\ldots,\frac{T}{2},T$:
+\begin{align}
+\sum_{\sigma}\CV_{\com}^2(\sigma) &= \CV_{\com}^2, \label{eq:th1eq1}\\
+\sum_{\sigma}\CV_{\comip}^2(\sigma) &= \CV_{\comip}^2, \label{eq:th1eq2}\\
+\sum_{\sigma}\varphi_{\ts}(\sigma) w(\sigma) &= \varphi. \label{eq:th1eq3}
+\end{align}
+\end{theorem}
+\begin{proof}
+Equation (\ref{eq:th1eq1}) follows because
+\begin{align}
+\sum_{\sigma}\CV_{\com}^2(\sigma) &= \sum_{\sigma} \frac{s_{\text{tt}}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \frac{\sum_{\sigma}  s_{\text{tt}}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \frac{v_{\text{tot}}}{\mu_{\text{tot}}^2} \label{eq:pf1eq1}\\
+&= \CV_{\com}^2,
+\end{align}
+where (\ref{eq:pf1eq1}) follows by the properties of the power spectrum (Appendix
+\ref{sec:spec}). Equation (\ref{eq:th1eq2}) follows because
+\begin{align}
+\sum_{\sigma}\CV_{\comip}^2(\sigma) &= \sum_{\sigma} \frac{\sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \frac{\sum_i \sum_\sigma s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \frac{\sum_i v_{ii}}{\mu_{\text{tot}}^2} \label{eq:pf1eq2}\\
+&= \CV_{\comip}^2,
+\end{align}
+where (\ref{eq:pf1eq2}) again follows by the properties of the power spectrum
+(Appendix \ref{sec:spec}). Equation (\ref{eq:th1eq3}) follows because
+\begin{align}
+\sum_{\sigma}\varphi_{\ts}(\sigma) w(\sigma) &= \sum_{\sigma} \frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)}
+ \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}} \\
+&= \frac{\sum_{\sigma} s_{\text{tt}}(\sigma)}{\sum_i v_{ii}} \\
+&= \frac{v_{\text{tot}}}{\sum_i v_{ii}} \label{eq:pf1eq3}\\
+&= \varphi, 
+\end{align}
+where (\ref{eq:pf1eq3}) again follows by the properties of the power spectrum
+(Appendix \ref{sec:spec}). 
+\end{proof}
+
+\begin{theorem}\label{thm:relate}
+Assuming $\mu_{\text{tot}}$ and $\sum_i v_{ii}$ are nonzero,
+\begin{equation}
+\CV_{\com}^2 = \varphi \CV_{\comip}^2. \label{eq:th2eq1}\\
+\end{equation}
+Again assuming $\mu_{\text{tot}}$ and $\sum_i v_{ii}$ are nonzero, and for $\sigma$ such
+that $\sum_i s_{ii}(\sigma) \neq 0$,
+\begin{align}
+\CV_{\com}^2(\sigma) &= \varphi_{\ts}(\sigma) \CV_{\comip}^2(\sigma). \label{eq:th2eq2}
+\end{align}
+\end{theorem}
+\begin{proof}
+Equation (\ref{eq:th2eq1}) holds because 
+\begin{align}
+\varphi \CV_{\comip}^2 &= \frac{v_{\text{tot}}}{\sum_i v_{ii}}
+\frac{\sum_i v_{ii}}{\mu_{\text{tot}}^2} \\
+&= \frac{v_{\text{tot}}}{\mu_{\text{tot}}^2} \\
+&= \CV_{\com}^2. 
+\end{align}
+Equation (\ref{eq:th2eq2}) holds because, for $\sigma$ for which 
+$\sum_i s_{ii}(\sigma) \neq 0$, we have
+\begin{align}
+\varphi_{\ts}(\sigma) \CV_{\comip}^2(\sigma) &= 
+\frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)}
+\frac{\sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \frac{s_{\text{tt}}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \CV_{\com}^2(\sigma).
+\end{align}
+\end{proof}
+
+\begin{theorem}\label{thm:range}
+Assuming $\mu_{\text{tot}}$ and $\sum_i v_{ii}$ are nonzero, and for $\sigma$ such
+that $\sum_i s_{ii}(\sigma) \neq 0$,
+\begin{align}
+\CV_{\com}^2(\Omega) &= \CV_{\comip}^2(\Omega)  \overline{\varphi_{\text{ts}}}(\Omega) . \label{eq:the3eq1}
+\end{align}
+\end{theorem}
+\begin{proof}
+Equation (\ref{eq:the3eq1}) holds because
+\begin{align}
+\CV_{\comip}^2(\Omega)  \overline{\varphi_{\text{ts}}}(\Omega) 
+&= \sum_{\sigma \in \Omega} \frac{\sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2}  \frac{\sum_{\sigma \in \Omega} \varphi_{\text{ts}}(\sigma) w(\sigma)}{\sum_{\sigma \in \Omega} w_{\sigma}}  \\
+&= \frac{\sum_{\sigma \in \Omega} \sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \frac{\sum_{\sigma \in \Omega} \frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)} \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}}}{\sum_{\sigma \in \Omega} \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}}} \\
+&= \frac{\sum_{\sigma \in \Omega} \sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \frac{\sum_{\sigma \in \Omega} s_{\text{tt}}(\sigma)}{\sum_i v_{ii}} \frac{\sum_i v_{ii}}{\sum_{\sigma \in \Omega} \sum_i s_{ii}(\sigma)} \\
+&= \frac{\sum_{\sigma \in \Omega} s_{tt}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \CV_{\com}^2(\Omega)
+\end{align}
+\end{proof}
+
+\section{Connections to the variance ratio of Loreau and de Mazancourt}
+\noindent Note to coauthors: this section currently holds some ideas.
+My feeling is they may not be complete (Shaopeng, maybe you have some insights
+to add?), and they are certainly not presented optimally. This section is
+for storing the ideas right now.
+
+The variance ratio of Loreau and de Mazancourt is 
+\begin{equation}
+\varphi^{(m)}=\frac{\sum_{i,j} v_{ij}}{(\sum_i \sqrt{v_{ii}})^2},
+\end{equation}
+and takes values between $0$ and $1$. The modified variance ratio 
+can be related to the classic variance ratio via
+\begin{align}
+\varphi &= \frac{\sum_{i,j} v_{ij}}{\sum_i v_{ii}} \\
+&= \frac{\sum_{i,j} v_{ij}}{(\sum_i \sqrt{v_{ii}})^2}
+\frac{(\sum_i \sqrt{v_{ii}})^2}{\sum_i v_{ii}} \\
+&= \varphi^{(m)} \frac{(\sum_i \sqrt{v_{ii}})^2}{\sum_i v_{ii}}.
+\end{align}
+The quantity 
+\begin{equation}
+f=\frac{(\sum_i \sqrt{v_{ii}})^2}{\sum_i v_{ii}}
+\end{equation}
+takes values between $1$ and $S$, and characterizes the degree to which the 
+variances $v_{ii}$ are heterogeneous. For instance, when these variance are all
+the same this term is $S$. When there is an index $i$ such that 
+$v_{ii} \gg v_{jj}$ for all $j \neq i$, $\varphi^{(m)}$ is close to $1$. 
+We note in particular that $f$ does not really relate to synchrony,
+as it does not depend on covariances or correlations between time series in
+different locations. This makes it clear that, while $\varphi$ has information
+about synchrony in it, it has other information as well.
+
+The previous relationship $\CV_{\com}^2=\varphi \CV_{\comip}^2$ becomes 
+\begin{equation}
+\CV_{\com}^2=\varphi^{(m)} f \CV_{\comip}^2.
+\end{equation}
+The quantity $\varphi^{(m)}$ is considered an index of synchrony, and this 
+new equation makes it clear that not only is synchrony implicated in
+whether population instability translates into community instability,
+so is the quantity $f$, which represents the degree to which the variances
+$v_{ii}$ are heterogeneous. But this may make sense because when these variances
+are very different the degree to which time series can  reinforce each other
+or cancel each other out is limited, whereas when the variances are very similar,
+time series can reinforce each other a lot or cancel each other out a lot,
+so $f$ is large and the effects of the overall variance ratio
+$\varphi$ are accentuated. I feel as though more can be said here, or it 
+can be said better. I am nervous about the fact that $\varphi^{(m)}$
+is not purely about synchrony either - I feel like if it were purely 
+about synchrony, it should only depend on the correlations between
+time series. Maybe there is yet another version of the variance ratio. 
+I have tried to develop one that only depends on correlations between the time
+series, with little success.
+
+The timescale-specific variance ratio also decomposes in a similar way:
+\begin{equation}
+\varphi_{\text{ts}}(\sigma)=\frac{\sum_{i,j}s_{ij}(\sigma)}{(\sum_i \sqrt{s_{ii}(\sigma)})^2}
+\frac{(\sum_i \sqrt{s_{ii}(\sigma)})^2}{\sum_i s_{ii}(\sigma)}.
+\end{equation}
+The first factor on the right here is a timescale-specific version of 
+$\varphi^{(m)}$. The new term
+\begin{equation}
+f(\sigma)=\frac{(\sum_i \sqrt{s_{ii}(\sigma)})^2}{\sum_i s_{ii}(\sigma)}
+\end{equation}
+is a timescale-specific version of $f$, with similar interpretation.
+And it should have the same bounds, between $1$ and $S$.
+
+
+% Figure
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{fig_decomposed_1_classic_jrg_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from JRG, which consist of 18 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{fig_decomposed_2_classic_kbs_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from KBS, which consist of 30 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{fig_decomposed_3_classic_hay_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from HAY, which consist of 13 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{fig_decomposed_4_classic_jrn_omit_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from JRN, which consist of 47 plots (one plot was omitted because of its extreme values in $CV^2_{com} (\sigma)$ and $CV^2_{pop} (\sigma)$). The plots are indicated by different colors in left panels, and by x-axis in right panels. Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue), or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{fig_decomposed_5_classic_knz_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from KNZ, which consist of 20 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{fig_decomposed_6_classic_sev_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from SEV, which consist of 22 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{fig_decomposed_7_classic_jrn_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from JRN, which consist of 48 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\end{figure}
+
+
+\end{document}
+
+
