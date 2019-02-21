@@ -22,8 +22,8 @@ checkpoint("2019-01-01",checkpointLocation = "./")
 dir.create("Figs", showWarnings = FALSE)   #create a folder to store the figs
 
 #install the tsvr package from github
-library(devtools)
-library(withr)
+#library(devtools)
+#library(withr)
 withr::with_libpaths(new=.libPaths()[1],
                      devtools::install_github(repo="reumandc/tsvr",ref="master",force=TRUE))
 library(tsvr)
