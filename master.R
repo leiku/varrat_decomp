@@ -41,7 +41,7 @@ source("dataprep_2012synthesisdat.R")
 
 #####  get calculations for basic results  ##### 
 #input: "Data_grassland.RDS", "SiteNames.RDS"
-#output: "result_basic.RDS", "summary_table.RDS", "XTableResult.tex"
+#output: "result_basic.RDS", "summary_table.RDS", "XTableResult.tex", "TextResults.RData"
 source("result_basic.R")
 
 #####  Fig - demo for pedagog time series and for one plot  #####

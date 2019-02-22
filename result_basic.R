@@ -94,8 +94,22 @@ sumtab$Plots<-unname(sapply(X=Resn,FUN=function(x){dim(x$averaged$com)[1]}))
 
 saveRDS(sumtab, "summary_table.RDS")
 
-names(sumtab)[3]<-"Year range"
-names(sumtab)[5]<-"Plot size, m^2"
+names(sumtab)[4]<-"Year range"
+names(sumtab)[6]<-"Plot size, m^2"
 names(sumtab)[8]<-"Data collection method"
 tabres<-xtable::xtable(sumtab,caption=c("Summary of datasets. Richness is the number of species that were ever seen in a plot, averaged across plots for a site.","Summary of datasets"))
 print(tabres,file="XTableResult.tex")
+
+
+#get some summary results for the main text
+numplots<-sum(sumtab[5])
+#***DAN: Lei, pls see following lines and fill in code
+minCVcom2<-NA #Lei, pls insert code. Should be the minimum CV_com^2 (non-timescale specific) across all plots, quoted as 0.01 in the first para of results
+maxCVcom2<-NA #Lei, same but for max
+minCVcomip2<-NA #Lei, same but for CVcomip2
+maxCVcomip2<-NA #Lei, same but for CVcomip2
+allvr<-NA #Lei, pls fill in - a vector of all 150 non-timescale-specific vrs
+minvr<-min(allvr) #Lei, pls fill in
+maxvr<-max(allvr) #Lei, pls fill in
+fraccomp<-sum(allvr<1)/length(allvr)
+save(minCVcom2,maxCVcom2,minCVcomip2,maxCVcomip2,allvr,minvr,maxvr,fraccomp,file="TextResults.RData")
