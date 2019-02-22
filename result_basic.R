@@ -1,11 +1,13 @@
 rm(list=ls())
 
 allsites <- readRDS("Data_grassland.RDS")  # input data
+sitenames <- readRDS("SiteNames.RDS") # site names
 
 # remove the extreme point for jrn ("JRN_NPP quadrat_BASN_7")
 i.omit <- 46
 allsites[[10]] <- allsites[[5]][-i.omit]  #JRN
 names(allsites)[10] <- "jrn_omit"
+sitenames[10]<-sitenames[5]
 
 ii <- c(4, 6, 3, 10, 7, 8, 5)  #index of sites used in the study (sorted by the average of classic vr)
 names.sites <- names(allsites)[ii]
@@ -62,3 +64,38 @@ for(i in 1:length(names.sites)){
 }
 saveRDS(Res, "result_basic.RDS")
 
+
+#get some summary results into a table
+snshort<-sitenames[c(4, 6, 3, 10, 7, 8)]
+Resn<-Res[1:6]
+names(Resn)[4]<-"jrn"
+names(Resn)<-toupper(names(Resn))
+sumtab<-data.frame(Site=snshort,Abbr.=names(Resn),Years=NA*numeric(6),YearRange=character(6),
+                   Plots=NA*numeric(6),PlotSizeSqMeter=NA*numeric(6),Richness=NA*numeric(6),
+                   DataCollectMethod=character(6),Description=character(6))
+
+#fill in data that just has to be typed in
+sumtab$PlotSizeSqMeter<-c(0.8,1,1,1,10,1)
+sumtab$DataCollectMethod<-c("Percent cover","Biomass (g/m^2)","Percent cover",
+                            "Allometric biomass (g/m^2)",
+                            "Percent cover","Biomass (g/m^2)")
+sumtab$Description<-c("Serpentine grassland","Old field","Tallgrass prairie","Desert grassland","Annually burned tallgrass prairie","Desert grassland")
+
+#fill in number of plots
+sumtab$Plots<-unname(sapply(X=Resn,FUN=function(x){dim(x$averaged$com)[1]}))
+
+#fill in years, and year range
+#***DAN: Lei, can you please fill this in - the code you add should compute the results
+#from the data and fill this in automatically
+
+#fill in richness
+#***DAN: Lei, can you please fill this in - the code you add should compute the results
+#from the data, using the JRN data with the one outlier plot removed, please
+
+saveRDS(sumtab, "summary_table.RDS")
+
+names(sumtab)[3]<-"Year range"
+names(sumtab)[5]<-"Plot size, m^2"
+names(sumtab)[8]<-"Data collection method"
+tabres<-xtable::xtable(sumtab,caption=c("Summary of datasets. Richness is the number of species that were ever seen in a plot, averaged across plots for a site.","Summary of datasets"))
+print(tabres,file="XTableResult.tex")

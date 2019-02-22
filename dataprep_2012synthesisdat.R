@@ -54,4 +54,7 @@ for (i in 1:length(sites)){
 names(allsites) = sites
 
 saveRDS(allsites, "Data_grassland.RDS")
-
+sitenames<-c("cdr","ebrp","Hays, Kansas","Jasper Ridge Biological Preserve",
+             "Jornada Basin LTER","Kellogg Biological Station LTER",
+             "Konza Prarie LTER","Sevilleta LTER","sgs")
+saveRDS(sitenames, "SiteNames.RDS")
