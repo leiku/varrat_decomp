@@ -114,7 +114,7 @@ maxCVcom2<-NA #Lei, same but for max
 minCVcomip2<-NA #Lei, same but for CVcomip2
 maxCVcomip2<-NA #Lei, same but for CVcomip2
 allvr<-NA #Lei, pls fill in - a vector of all 150 non-timescale-specific vrs
-minvr<-min(allvr) #Lei, pls fill in
-maxvr<-max(allvr) #Lei, pls fill in
+minvr<-min(allvr) 
+maxvr<-max(allvr) 
 fraccomp<-sum(allvr<1)/length(allvr)
 save(minCVcom2,maxCVcom2,minCVcomip2,maxCVcomip2,allvr,minvr,maxvr,fraccomp,file="TextResults.RData")
