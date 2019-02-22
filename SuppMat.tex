@@ -4,8 +4,9 @@
 \usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{natbib}
-\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage[top=1.25cm, bottom=1.25cm, left=1.25cm, right=1.25cm]{geometry}
 \usepackage{amsthm}
+\usepackage{lscape}
 
 \newcommand{\var}{{\operatorname{var}}}
 \newcommand{\cov}{{\operatorname{cov}}}
@@ -32,8 +33,8 @@
 
 \begin{document}
 
-\title{A timescale-specific variance ratio in theory and practice}
-\author{Zhao, Wang, Cottingham, Hallett, Rypel, Reuman}
+\title{Appendices for: A new variance ratio metric to detect the timescale of compensatory dynamics}
+\author{Zhao, Wang, Hallett, Rypel, Castorani, Shoemaker, Cottingham, Suding, Reuman}
 \date{}
 \maketitle
 
@@ -217,41 +218,42 @@ f(\sigma)=\frac{(\sum_i \sqrt{s_{ii}(\sigma)})^2}{\sum_i s_{ii}(\sigma)}
 is a timescale-specific version of $f$, with similar interpretation.
 And it should have the same bounds, between $1$ and $S$.
 
+\newpage
+\clearpage
+
+%\begin{landscape}
+\input{XTableResult.tex}
+%\end{landscape}
 
 % Figure
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{fig_decomposed_1_classic_jrg_sorted_vrf.pdf}
-\caption{Demonstration of timescale analyses of data from JRG, which consist of 18 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\includegraphics[width=0.9\textwidth]{Figs/fig_decomposed_1_classic_jrg_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from JRG, which consist of 18 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short timescales ($<$ 4 years; blue) or long timescales ($\geq$ 4 years; red). On right panels, plots are sorted on the x-axis by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{fig_decomposed_2_classic_kbs_sorted_vrf.pdf}
-\caption{Demonstration of timescale analyses of data from KBS, which consist of 30 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\includegraphics[width=0.9\textwidth]{Figs/fig_decomposed_2_classic_kbs_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from KBS, which consist of 30 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short timescales ($<$ 4 years; blue) or long timescales ($\geq$ 4 years; red). On right panels, plots are sorted on the x-axis by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{fig_decomposed_3_classic_hay_sorted_vrf.pdf}
-\caption{Demonstration of timescale analyses of data from HAY, which consist of 13 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\includegraphics[width=0.9\textwidth]{Figs/fig_decomposed_3_classic_hay_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from HAY, which consist of 13 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short timescales ($<$ 4 years; blue) or long timescales ($\geq$ 4 years; red). On right panels, plots are sorted on the x-axis by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{fig_decomposed_4_classic_jrn_omit_sorted_vrf.pdf}
-\caption{Demonstration of timescale analyses of data from JRN, which consist of 47 plots (one plot was omitted because of its extreme values in $CV^2_{com} (\sigma)$ and $CV^2_{pop} (\sigma)$). The plots are indicated by different colors in left panels, and by x-axis in right panels. Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue), or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\includegraphics[width=0.9\textwidth]{Figs/fig_decomposed_4_classic_jrn_omit_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from JRN, which consist of 47 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short timescales ($<$ 4 years; blue) or long timescales ($\geq$ 4 years; red). On right panels, plots are sorted on the x-axis by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{fig_decomposed_5_classic_knz_sorted_vrf.pdf}
-\caption{Demonstration of timescale analyses of data from KNZ, which consist of 20 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\includegraphics[width=0.9\textwidth]{Figs/fig_decomposed_5_classic_knz_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from KNZ, which consist of 20 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short timescales ($<$ 4 years; blue) or long timescales ($\geq$ 4 years; red). On right panels, plots are sorted on the x-axis by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{fig_decomposed_6_classic_sev_sorted_vrf.pdf}
-\caption{Demonstration of timescale analyses of data from SEV, which consist of 22 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=0.9\textwidth]{fig_decomposed_7_classic_jrn_sorted_vrf.pdf}
-\caption{Demonstration of timescale analyses of data from JRN, which consist of 48 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short ($<$ 4 years; blue) or long ($\geq$ 4 years; red). The index of plots is sorted by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
+\includegraphics[width=0.9\textwidth]{Figs/fig_decomposed_6_classic_sev_sorted_vrf.pdf}
+\caption{Demonstration of timescale analyses of data from SEV, which consist of 22 plots (indicated by different colors in left panels, and by x-axis in right panels). Different colors in the right panels indicate the average (or weighted average) of the values in the corresponding left panels across short timescales ($<$ 4 years; blue) or long timescales ($\geq$ 4 years; red). On right panels, plots are sorted on the x-axis by the difference between short- and long-timescale averaged $\varphi _{ts} (\sigma)$.}
 \end{figure}
 
 

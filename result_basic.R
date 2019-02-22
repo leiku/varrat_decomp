@@ -76,10 +76,13 @@ sumtab<-data.frame(Site=snshort,Abbr.=names(Resn),Years=NA*numeric(6),YearRange=
 
 #fill in data that just has to be typed in
 sumtab$PlotSizeSqMeter<-c(0.8,1,1,1,10,1)
-sumtab$DataCollectMethod<-c("Percent cover","Biomass (g/m^2)","Percent cover",
-                            "Allometric biomass (g/m^2)",
-                            "Percent cover","Biomass (g/m^2)")
-sumtab$Description<-c("Serpentine grassland","Old field","Tallgrass prairie","Desert grassland","Annually burned tallgrass prairie","Desert grassland")
+sumtab$DataCollectMethod<-c("Percent cover","Biomass","Percent cover",
+                            "Allometric biomass",
+                            "Percent cover","Biomass")
+sumtab$Description<-c("Serpentine grassland","Old field",
+                                        "Tallgrass prairie","Desert grassland",
+                                        "Annually burned tallgrass prairie",
+                                        "Desert grassland")
 
 #fill in number of plots
 sumtab$Plots<-unname(sapply(X=Resn,FUN=function(x){dim(x$averaged$com)[1]}))
@@ -94,11 +97,13 @@ sumtab$Plots<-unname(sapply(X=Resn,FUN=function(x){dim(x$averaged$com)[1]}))
 
 saveRDS(sumtab, "summary_table.RDS")
 
-names(sumtab)[4]<-"Year range"
-names(sumtab)[6]<-"Plot size, m^2"
-names(sumtab)[8]<-"Data collection method"
-tabres<-xtable::xtable(sumtab,caption=c("Summary of datasets. Richness is the number of species that were ever seen in a plot, averaged across plots for a site.","Summary of datasets"))
-print(tabres,file="XTableResult.tex")
+names(sumtab)[4]<-"Yr. rg."
+names(sumtab)[6]<-"Plot size"
+names(sumtab)[8]<-"Measured"
+rownames(sumtab)<-NULL
+tabres<-xtable::xtable(sumtab,caption=c("Summary of datasets. Plot size in square meters. Richness is the number of species that were ever seen in a plot, averaged across plots for a site. Biomass, when measured, was in g per square meter","Summary of datasets"),
+                       align=c('p{2in}',rep("l",ncol(sumtab))))
+xtable::print.xtable(tabres,file="XTableResult.tex",include.rownames=FALSE,scalebox=0.75)
 
 
 #get some summary results for the main text
