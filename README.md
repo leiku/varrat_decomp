@@ -1,7 +1,7 @@
 # Workflow for the manuscript "Decomposition of the variance ratio illuminates timescale-specific population and community variability"
 
 Lei Zhao, China Agricultural University  
-Lauren Hallett, University of Oregon 
+Lauren Hallett, University of Oregon  
 Shaopeng Wang, Peking University  
 Reuman Daniel, University of Kansas
 There are additional authors that contributed to the manuscript itself but not to the codes here 
@@ -26,8 +26,7 @@ is in. Then see the XXX (DAN add info about compiling the sup mat).
 
 If you find additional dependencies were needed on your system, please let us know: 
 lei.zhao@cau.edu.cn, reuman@ku.edu. The code was run by Reuman on Ubuntu 16.04 
-using R version 3.4.4 and pdflatex; and by Zhao on XXX using R version XXX and XXX. 
-<!--***DAN: Lei, please fill in the XXXs above-->
+using R version 3.4.4 and pdflatex; and by Zhao on Windows 10 using R version 3.5.1 and MikTex 2.9. 
 It has not been tested on Mac. We have endeavored to list all dependencies we can 
 think of above, but we have only run the codes on our own machines, so we cannot 
 guarantee that additional dependencies will not also be needed on other machines. 
