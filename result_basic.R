@@ -70,7 +70,7 @@ snshort<-sitenames[c(4, 6, 3, 10, 7, 8)]
 Resn<-Res[1:6]
 names(Resn)[4]<-"jrn"
 names(Resn)<-toupper(names(Resn))
-sumtab<-data.frame(Site=snshort,Abbr.=names(Resn),Years=NA*numeric(6),YearRange=character(6),
+sumtab<-data.frame(Site=snshort,Abbr.=names(Resn),Years=NA*numeric(6),YearRange=rep(NA,6),
                    Plots=NA*numeric(6),PlotSizeSqMeter=NA*numeric(6),Richness=NA*numeric(6),
                    DataCollectMethod=character(6),Description=character(6))
 
@@ -88,12 +88,19 @@ sumtab$Description<-c("Serpentine grassland","Old field",
 sumtab$Plots<-unname(sapply(X=Resn,FUN=function(x){dim(x$averaged$com)[1]}))
 
 #fill in years, and year range
-#***DAN: Lei, can you please fill this in - the code you add should compute the results
-#from the data and fill this in automatically
+alln <- allsites[c(4,6,3,10,7,8)]
+tmp <- lapply(alln, "[[", 1)
+sumtab$Years <- unlist(lapply(tmp, nrow))
+tmp1 <- lapply(tmp, rownames)
+for(i in 1:6){
+  sumtab$YearRange[i] <- paste0(tmp1[[i]][1],"-",tmp1[[i]][length(tmp1[[i]])])
+}
 
 #fill in richness
-#***DAN: Lei, can you please fill this in - the code you add should compute the results
-#from the data, using the JRN data with the one outlier plot removed, please
+for(i in 1:6){
+  tmp <- lapply(alln[[i]], function(X) sum(colSums(X)>0))
+  sumtab$Richness[i] <- round(mean(unlist(tmp)),1)
+}
 
 saveRDS(sumtab, "summary_table.RDS")
 
@@ -108,12 +115,14 @@ xtable::print.xtable(tabres,file="XTableResult.tex",include.rownames=FALSE,scale
 
 #get some summary results for the main text
 numplots<-sum(sumtab[5])
-#***DAN: Lei, pls see following lines and fill in code
-minCVcom2<-NA #Lei, pls insert code. Should be the minimum CV_com^2 (non-timescale specific) across all plots, quoted as 0.01 in the first para of results
-maxCVcom2<-NA #Lei, same but for max
-minCVcomip2<-NA #Lei, same but for CVcomip2
-maxCVcomip2<-NA #Lei, same but for CVcomip2
-allvr<-NA #Lei, pls fill in - a vector of all 150 non-timescale-specific vrs
+tmp <- lapply(Resn, "[[", 1)
+tmp.CVcom2 <- unlist(lapply(lapply(tmp, "[[", 2), rowSums))
+minCVcom2<- min(tmp.CVcom2) 
+maxCVcom2<-max(tmp.CVcom2)
+tmp.CVcomip2 <- unlist(lapply(lapply(tmp, "[[", 3), rowSums))
+minCVcomip2<-min(tmp.CVcomip2)
+maxCVcomip2<-max(tmp.CVcomip2)
+allvr<-tmp.CVcom2 / tmp.CVcomip2
 minvr<-min(allvr) 
 maxvr<-max(allvr) 
 fraccomp<-sum(allvr<1)/length(allvr)
