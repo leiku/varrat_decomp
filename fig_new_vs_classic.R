@@ -5,8 +5,7 @@ Res <- readRDS("result_basic.RDS")
 
 name.site<-c("JRG","KBS","HAY","JRN","KNZ","SEV")
 
-tiff("Figs/fig_new_vs_classic.tif", 
-    width=7.4, height=5, units="in",res=300,compression = "lzw")
+pdf("Figs/fig_new_vs_classic.pdf",width=7.4, height=5)
 op<-par(mfrow=c(2,3),mgp=c(1.8,0.6,0),mar=c(2,2,1,1), oma=c(3,3,0,0))
 for(i in 1:6){
   vr <- Res[[i]][[2]][[3]]
@@ -21,8 +20,8 @@ for(i in 1:6){
 }
 op<-par(new=T, mfrow=c(1,1),mar=c(0,0,0,0))
 plot(NA, xlim=c(0,1), ylim=c(0,1), xlab=NA, ylab=NA, xaxt="n", yaxt="n",bty="n")
-mtext(expression(varphi["classic"]),side=1,line=1.5)
-mtext(expression(weighted~average~of~varphi(sigma)),side=2,line=1.5)
+mtext(expression(classic~variance~ratio~varphi),side=1,line=1.5)
+mtext(expression(weighted~average~of~varphi[ts](sigma)),side=2,line=1.5)
 par(op)
 dev.off()
 

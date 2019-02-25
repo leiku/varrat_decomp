@@ -1,6 +1,13 @@
 ####### line plot (new: cv.all is the mean across all timescales) 
 rm(list=ls())
 
+panlabs<-c("a","g","m","s",
+           "b","h","n","t",
+           "c","i","o","u",
+           "d","j","p","v",
+           "e","k","q","w",
+           "f","l","r","x")
+
 library(scales) # col: alpha
 library(normtest)
 Res <- readRDS("result_basic.RDS")
@@ -71,7 +78,7 @@ for(i in 1:6){
     }else{
         mtext(stars, side=3, line=-1.5, cex=1.2, adj=adjs[j])}
     
-    mtext(paste0("(",letters[a],")"), side=3, line=-1.2, adj=0.05, cex=0.8)
+    mtext(paste0("(",panlabs[a],")"), side=3, line=-1.2, adj=0.05, cex=0.8)
     a<-a+1
   }
   
@@ -86,7 +93,7 @@ for(i in 1:6){
   mtext(name.site[i], side=4, line=0.6, cex=1.1, las=1)
   axis(1, at=c(-4,-3,-2,-1,0), labels = c(0.0001,0.001,0.01,0.1,1))
   axis(2, at=c(-4,-3,-2,-1,0), labels = c(0.0001,0.001,0.01,0.1,1))
-  mtext(paste0("(",letters[a],")"), side=3, line=-1.2, adj=0.05, cex=0.8)
+  mtext(paste0("(",panlabs[a],")"), side=3, line=-1.2, adj=0.05, cex=0.8)
   a<-a+1
 }
 

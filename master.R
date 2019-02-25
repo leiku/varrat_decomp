@@ -56,12 +56,12 @@ source("fig_lineplot_averaged.R")
 
 #####  Fig - quantile plot for timescale-specific variance ratio  #####
 #input: "result_basic.RDS"
-#output: "fig_timescale_quantile.tif"
+#output: "fig_timescale_quantile.pdf"
 source("fig_timescale_quantile.R")
 
 #####  Fig - timescale-decomposed versus classic variance ratio  #####
 #input: "result_basic.RDS"
-#output: "fig_new_vs_classic.tif"
+#output: "fig_new_vs_classic.pdf"
 source("fig_new_vs_classic.R")
 
 #####  Figs - timescale-specific variance, com, and com_ip for individual sites  ##### 

@@ -7,8 +7,8 @@ xaxt<-c(0.1,1/3,1/2,2/3,0.9)
 xaxl<-c('10','3','2','1.5','1.11')
 name.site<-c("JRG","KBS","HAY","JRN","KNZ","SEV")
 
-tiff("Figs/fig_timescale_quantile.tif", 
-     width=7, height=8, units="in",res=600,compression = "lzw")
+pdf("Figs/fig_timescale_quantile.pdf", 
+     width=7, height=8)
 op<-par(mfrow=c(3,2),oma=c(3.5,3.5,0.5,0.5), mar=c(1.5,1.5,1,1),mgp=c(2.5,0.5,0),
         tck=-.02,cex.axis=1.2,cex.lab=1.5,cex.main=1.5)
 
