@@ -17,8 +17,10 @@
 \newcommand{\CV}{{\operatorname{CV}}}
 \newcommand{\com}{{\operatorname{com}}}
 \newcommand{\comip}{{\operatorname{com\_ip}}}
+\newcommand{\pop}{{\operatorname{pop}}}
 \newcommand{\td}{{\operatorname{td}}}
 \newcommand{\ts}{{\operatorname{ts}}}
+\newcommand{\Rp}{{\operatorname{Re}}}
 
 \renewcommand{\qedsymbol}{\rule{.7em}{.7em}}
 \renewcommand{\thesection}{S\arabic{section}}
@@ -38,13 +40,58 @@
 \date{}
 \maketitle
 
-\section{Details of spectral methods}\label{sec:spec}
-\noindent Dan to fill this in
+\section{Basics of Fourier methods}\label{sec:spec}
+\noindent If $x_i(t)$ is a population abundance measurement for taxon $i$ 
+($i=1,\ldots,S$) at time $t$ ($t=1,\ldots,T$), the discrete Fourier transform is 
+\begin{equation}
+X_i(h)=\sum_{t=1}^T x_i(t) \exp(-2 \pi i (t-1)(h-1)/T),
+\end{equation}
+for $h=1,\ldots,T$. The value $X_i(1)$ equals the sum of the time series $x_i(t)$,
+and we discard that value. The value $X_i(h)$ for $h>1$ is the Fourier transform 
+at frequency $(h-1)/T$ (units of cycles per sampling interval), or timescale 
+$\sigma=T/(h-1)$ (units of sampling intervals), which we henceforth
+denote $X_i(\sigma)$ for $\sigma=T/(T-1),T/(T-2),\ldots,T/2,T$.
+
+We define $s_{ii}(\sigma)=\bar{X}_i(\sigma) X_i(\sigma)/(T(T-1))$, where the overbar
+represents complex conjugation. If $x_i(t)$
+can be assumed to be a finite sample from a stationary stochastic 
+process, then this is the periodogram estimate of the power spectrum of that
+process \citep{Brillinger2001}. We define 
+$s_{ij}(\sigma)=\Rp(\bar{X}_i(\sigma) X_j(\sigma))/(T(T-1))$. If the $x_i(t)$
+and $x_j(t)$ together can be assumed to be a finite sample from a two-dimensional
+stationary stochastic process, then this is the periodogram estimate of the 
+cospectrum of that process \citep{Brillinger2001}. 
+
+We now state some facts of basic Fourier analysis without proof. There are many 
+references, including the classic book of \cite{Brillinger2001}, that provide proofs
+and extensive further background on the statistics of spectral analysis of time series.
+First, $s_{ii}(\sigma)$ and $s_{ij}(\sigma)$ are real-valued quantities, and 
+$\sum_\sigma s_{ii}(\sigma) = \var(x_i(t))$ and 
+$\sum_\sigma s_{ij}(\sigma) = \cov(x_i(t),x_j(t))$, where the summations are over
+$\sigma=T/(T-1),T/(T-2),\ldots,T/2,T$. Second, $s_{ii}(\sigma)$ and $s_{ij}(\sigma)$
+are symmetric about the ``Nyquist timescale'' (2 time steps), i.e., 
+the vector of those elements of $s_{ii}(\sigma)$ (respectively, $s_{ij}(\sigma)$)
+for which $\sigma<2$ equals the vector of those elements of 
+$s_{ii}(\sigma)$ (respectively, $s_{ij}(\sigma)$) for which $\sigma>2$, written
+in reverse order. This is why plots of these quantities against timescale are 
+symmetric. Typically one plots and interprets 
+these quantities only for timescales $\sigma \geq 2$,
+but we plot all timescales in Fig. 3 in the main text 
+because sums and averages over all timescales are 
+required to recover non-timescale-specific variance ratios and population
+and community variability statistics (see next section), and part of the 
+purpose of that figure is to illustrate that these sums and averages do
+recover the non-timescale-specific quantities.
 
 \section{Details of the theory}
-\noindent We recapitulate definitions from the main text. Let $x_i(t)$ be population 
-density or biomass time series for times $t=1,\ldots,T$ and taxa $i=1,\ldots,S$, and 
-let $\mu_i=\mean(x_i (t))$, $v_{ij}=\cov(x_i (t),y_j (t))$, $x_{\text{tot}} (t)=\sum_i x_i(t)$, $\mu_{\text{tot}}=\mean(x_{\text{tot}}(t))=\sum_i \mu_i$, and $v_{\text{tot}}=\var(x_{\text{tot}}(t))=\sum_{i,j}v_{ij}$. Then, using the definitions of spectral quantities provided in Appendix \ref{sec:spec}, we define
+\noindent We recapitulate definitions from the main text. If $x_i(t)$ is a population abundance measurement for taxon $i$ 
+($i=1,\ldots,S$) at time $t$ ($t=1,\ldots,T$), then let 
+$\mu_i=\mean(x_i (t))$, $v_{ij}=\cov(x_i (t),y_j (t))$, $x_{\text{tot}} (t)=\sum_i x_i(t)$, 
+$\mu_{\text{tot}}=\mean(x_{\text{tot}}(t))=\sum_i \mu_i$, and 
+$v_{\text{tot}}=\var(x_{\text{tot}}(t))=\sum_{i,j}v_{ij}$. Then, 
+using the definitions of spectral quantities provided in Appendix \ref{sec:spec} and 
+defining $s_{\text{tt}}(\sigma)$ to be the periodogram estimate of the 
+power spectrum of $x_{\text{tot}}(t)$ and $\Omega$ to be a set of timescales, we define
 \begin{align}
 \text{CV}_{\text{com}}^2 &= \frac{v_{\text{tot}}}{\mu_{\text{tot}}^2}=\frac{\sum_{i,j}v_{ij}}{(\sum_i \mu_i)^2},\\
 \text{CV}_{\text{com\_ip}}^2 &=\frac{\sum_{i}v_{ii}}{(\sum_i \mu_i)^2}
@@ -58,6 +105,8 @@ let $\mu_i=\mean(x_i (t))$, $v_{ij}=\cov(x_i (t),y_j (t))$, $x_{\text{tot}} (t)=
 \varphi_{\text{ts}}(\sigma) &= \frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)}
 =\frac{\sum_{i,j}s_{ij}(\sigma)}{\sum_i s_{ii}(\sigma)},\\
 w(\sigma) &= \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}},\\
+\text{CV}_{\text{com}}^2(\Omega) &= \sum_{\sigma \in \Omega} \text{CV}_{\text{com}}^2(\sigma),\\
+\text{CV}_{\text{com\_ip}}^2(\Omega) &= \sum_{\sigma \in \Omega} \text{CV}_{\text{com\_ip}}^2(\sigma),\\
 \overline{\varphi_{\text{ts}}}(\Omega) &= \frac{\sum_{\sigma \in \Omega} \varphi_{\text{ts}}(\sigma) w(\sigma)}
 {\sum_{\sigma \in \Omega} w(\sigma)}.
 \end{align}
@@ -65,7 +114,7 @@ The quantities $\mu_{\text{tot}}^2$, $\sum_i v_{ii}$ and
 $\sum_i s_{ii}(\sigma)$ appearing in denominators above 
 should typically be nonzero for all real data sets. 
 
-The above definitions lead to two theorems as follows:
+The above definitions lead to three theorems as follows:
 \begin{theorem}\label{thm:freqdecom}
 Assuming $\mu_{\text{tot}}$ and $\sum_i v_{ii}$ are nonzero, the following timescale decompositions hold exactly, where summations are over the
 timescales $\sigma=\frac{T}{T-1},\frac{T}{T-2},\ldots,\frac{T}{2},T$:
@@ -83,7 +132,8 @@ Equation (\ref{eq:th1eq1}) follows because
 &= \frac{v_{\text{tot}}}{\mu_{\text{tot}}^2} \label{eq:pf1eq1}\\
 &= \CV_{\com}^2,
 \end{align}
-where (\ref{eq:pf1eq1}) follows by the properties of the power spectrum (Appendix
+where (\ref{eq:pf1eq1}) follows by the properties of the power spectrum 
+estimate (Appendix
 \ref{sec:spec}). Equation (\ref{eq:th1eq2}) follows because
 \begin{align}
 \sum_{\sigma}\CV_{\comip}^2(\sigma) &= \sum_{\sigma} \frac{\sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \\
@@ -92,7 +142,7 @@ where (\ref{eq:pf1eq1}) follows by the properties of the power spectrum (Appendi
 &= \CV_{\comip}^2,
 \end{align}
 where (\ref{eq:pf1eq2}) again follows by the properties of the power spectrum
-(Appendix \ref{sec:spec}). Equation (\ref{eq:th1eq3}) follows because
+estimate we use (Appendix \ref{sec:spec}). Equation (\ref{eq:th1eq3}) follows because
 \begin{align}
 \sum_{\sigma}\varphi_{\ts}(\sigma) w(\sigma) &= \sum_{\sigma} \frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)}
  \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}} \\
@@ -101,7 +151,14 @@ where (\ref{eq:pf1eq2}) again follows by the properties of the power spectrum
 &= \varphi, 
 \end{align}
 where (\ref{eq:pf1eq3}) again follows by the properties of the power spectrum
-(Appendix \ref{sec:spec}). 
+estimate (Appendix \ref{sec:spec}). There is an assumption used here that 
+$\sum_i s_{ii}(\sigma)$ differs from $0$ for all timescales 
+$\sigma$, which should typically be true for real datasets. However, for
+datasets for which $\sum_i s_{ii}(\sigma)$ is $0$ for some $\sigma$ (e.g., Fig. 1 in 
+the main text),
+the summation in equation \ref{eq:th1eq3} can be replaced by a summation
+over timescales for which $\sum_i s_{ii}(\sigma) \neq 0$ to recover the
+non-timescale-specific variance ratio (Fig. 3, main text).
 \end{proof}
 
 \begin{theorem}\label{thm:relate}
@@ -135,35 +192,29 @@ $\sum_i s_{ii}(\sigma) \neq 0$, we have
 \end{proof}
 
 \begin{theorem}\label{thm:range}
-Assuming $\mu_{\text{tot}}$ and $\sum_i v_{ii}$ are nonzero, and for $\sigma$ such
-that $\sum_i s_{ii}(\sigma) \neq 0$,
+Assuming $\mu_{\text{tot}}$ and $\sum_i v_{ii}$ are nonzero, and for $\Omega$ only 
+containing $\sigma$ such that $\sum_i s_{ii}(\sigma) \neq 0$,
 \begin{align}
 \CV_{\com}^2(\Omega) &= \CV_{\comip}^2(\Omega)  \overline{\varphi_{\text{ts}}}(\Omega) . \label{eq:the3eq1}
 \end{align}
 \end{theorem}
 \begin{proof}
-Equation (\ref{eq:the3eq1}) holds because
 \begin{align}
 \CV_{\comip}^2(\Omega)  \overline{\varphi_{\text{ts}}}(\Omega) 
-&= \sum_{\sigma \in \Omega} \frac{\sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2}  \frac{\sum_{\sigma \in \Omega} \varphi_{\text{ts}}(\sigma) w(\sigma)}{\sum_{\sigma \in \Omega} w_{\sigma}}  \\
-&= \frac{\sum_{\sigma \in \Omega} \sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \frac{\sum_{\sigma \in \Omega} \frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)} \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}}}{\sum_{\sigma \in \Omega} \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}}} \\
+&= \left[ \sum_{\sigma \in \Omega} \frac{\sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \right]  \frac{\sum_{\sigma \in \Omega} \varphi_{\text{ts}}(\sigma) w(\sigma)}{\sum_{\sigma \in \Omega} w_{\sigma}}  \\
+&= \left[ \frac{\sum_{\sigma \in \Omega} \sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \right] \frac{\sum_{\sigma \in \Omega} \frac{s_{\text{tt}}(\sigma)}{\sum_i s_{ii}(\sigma)} \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}}}{\sum_{\sigma \in \Omega} \frac{\sum_i s_{ii}(\sigma)}{\sum_i v_{ii}}} \\
 &= \frac{\sum_{\sigma \in \Omega} \sum_i s_{ii}(\sigma)}{\mu_{\text{tot}}^2} \frac{\sum_{\sigma \in \Omega} s_{\text{tt}}(\sigma)}{\sum_i v_{ii}} \frac{\sum_i v_{ii}}{\sum_{\sigma \in \Omega} \sum_i s_{ii}(\sigma)} \\
-&= \frac{\sum_{\sigma \in \Omega} s_{tt}(\sigma)}{\mu_{\text{tot}}^2} \\
+&= \frac{\sum_{\sigma \in \Omega} s_{\text{tt}}(\sigma)}{\mu_{\text{tot}}^2} \\
 &= \CV_{\com}^2(\Omega)
 \end{align}
 \end{proof}
 
 \section{Connections to the variance ratio of Loreau and de Mazancourt}
-\noindent Note to coauthors: this section currently holds some ideas.
-My feeling is they may not be complete (Shaopeng, maybe you have some insights
-to add?), and they are certainly not presented optimally. This section is
-for storing the ideas right now.
-
-The variance ratio of Loreau and de Mazancourt is 
+\noindent The variance ratio of Loreau and de Mazancourt is 
 \begin{equation}
 \varphi^{(m)}=\frac{\sum_{i,j} v_{ij}}{(\sum_i \sqrt{v_{ii}})^2},
 \end{equation}
-and takes values between $0$ and $1$. The modified variance ratio 
+and takes values between $0$ and $1$ \citep{Loreau2008}. This variance ratio 
 can be related to the classic variance ratio via
 \begin{align}
 \varphi &= \frac{\sum_{i,j} v_{ij}}{\sum_i v_{ii}} \\
@@ -175,55 +226,89 @@ The quantity
 \begin{equation}
 f=\frac{(\sum_i \sqrt{v_{ii}})^2}{\sum_i v_{ii}}
 \end{equation}
-takes values between $1$ and $S$, and characterizes the degree to which the 
-variances $v_{ii}$ are heterogeneous. For instance, when these variance are all
+takes values between $1$ and $S$ (see lemma \ref{lemJenson} below), 
+and characterizes the degree to which the 
+variances $v_{ii}$ are heterogeneous. For instance, when these variances are all
 the same this term is $S$. When there is an index $i$ such that 
-$v_{ii} \gg v_{jj}$ for all $j \neq i$, $\varphi^{(m)}$ is close to $1$. 
-We note in particular that $f$ does not really relate to synchrony,
+$v_{ii} \gg v_{jj}$ for all $j \neq i$, $f$ is close to $1$. 
+The quantity $f$ does not really relate to synchrony,
 as it does not depend on covariances or correlations between time series in
-different locations. This makes it clear that, while $\varphi$ has information
-about synchrony in it, it has other information as well.
+different locations. Thus $\varphi$ has information
+about synchrony in it, but it has other information as well.
 
 The previous relationship $\CV_{\com}^2=\varphi \CV_{\comip}^2$ becomes 
 \begin{equation}
 \CV_{\com}^2=\varphi^{(m)} f \CV_{\comip}^2.
 \end{equation}
-The quantity $\varphi^{(m)}$ is considered an index of synchrony, and this 
-new equation makes it clear that not only is synchrony implicated in
-whether population instability translates into community instability,
+The quantity $\varphi^{(m)}$ is considered an index of synchrony
+\citep{Loreau2008}, and this 
+new equation makes it clear that not only are synchrony/compensatory dynamics
+implicated in
+to what extent population variability ($\CV_{\comip}^2$) 
+translates into community variability ($\CV_{\com}^2$),
 so is the quantity $f$, which represents the degree to which the variances
-$v_{ii}$ are heterogeneous. But this may make sense because when these variances
-are very different the degree to which time series can  reinforce each other
-or cancel each other out is limited, whereas when the variances are very similar,
-time series can reinforce each other a lot or cancel each other out a lot,
-so $f$ is large and the effects of the overall variance ratio
-$\varphi$ are accentuated. I feel as though more can be said here, or it 
-can be said better. I am nervous about the fact that $\varphi^{(m)}$
-is not purely about synchrony either - I feel like if it were purely 
-about synchrony, it should only depend on the correlations between
-time series. Maybe there is yet another version of the variance ratio. 
-I have tried to develop one that only depends on correlations between the time
-series, with little success.
+$v_{ii}$ are heterogeneous. But this makes sense because when these variances
+are very different, the degree to which time series can reinforce each other (synchrony)
+or cancel each other out (compensatory dynamics) is limited. Whereas 
+when the variances $v_{ii}$ are similar,
+time series can reinforce each other or cancel each other out substantially,
+and $f$ is large and the effects of the overall variance ratio
+$\varphi$ are accentuated. Following \cite{Loreau2008}, we define
+$\CV_{\pop}^2 = f \CV_{\comip}^2 = \frac{\left( \sum_i \sqrt{v_{ii}} \right)^2}{\left( \sum_i \mu_i \right)^2}$, 
+so that 
+$\CV_{\com}^2 = \varphi^{(m)} \CV_{\pop}^2$. Then $\CV_{\pop}^2 = \frac{\left( \sum_i \sqrt{v_{ii}} \right)^2}{\left( \sum_i \mu_i  \right)^2}$.
 
-The timescale-specific variance ratio also decomposes in a similar way:
+The timescale-specific variance ratio can also be decomposed in a similar way,
 \begin{equation}
 \varphi_{\text{ts}}(\sigma)=\frac{\sum_{i,j}s_{ij}(\sigma)}{(\sum_i \sqrt{s_{ii}(\sigma)})^2}
 \frac{(\sum_i \sqrt{s_{ii}(\sigma)})^2}{\sum_i s_{ii}(\sigma)}.
 \end{equation}
 The first factor on the right here is a timescale-specific version of 
-$\varphi^{(m)}$. The new term
+$\varphi^{(m)}$, which we denote $\varphi_{\text{ts}}^{(m)}(\sigma)$. The new term
 \begin{equation}
 f(\sigma)=\frac{(\sum_i \sqrt{s_{ii}(\sigma)})^2}{\sum_i s_{ii}(\sigma)}
 \end{equation}
-is a timescale-specific version of $f$, with similar interpretation.
-And it should have the same bounds, between $1$ and $S$.
+is a timescale-specific version of $f$, with similar interpretation. We can define 
+$\CV_{\pop}^2(\sigma)=f(\sigma) \CV_{\comip}^2 (\sigma)$, so that 
+$\CV_{\com}^2(\sigma) = \varphi_{\text{ts}}^{(m)}(\sigma) \CV_{\pop}^2(\sigma)$.
+Then $\CV_{\pop}^2(\sigma)=\frac{\left( \sum_i \sqrt{s_{ii}(\sigma)} \right)^2}{\left( \sum_i \mu_i  \right)^2}$. One would hope that the sum of this quantity across
+timescales would equal $\CV_{\pop}^2$, but that is not the case because of the square root
+and the square.
+For this reason we have been unable to find a satisfactory extension of our 
+timescale-specific approach to the Loreau-de Mazancourt variance ratio.
+
+\begin{lemma}\label{lemJenson}
+The quantity $f$ defined above satisfies $1 \leq f \leq S$.
+\end{lemma}
+\begin{proof}
+\noindent It suffices to show 
+$1 \leq \frac{(\sum_{i=1}^S a_i)^2}{\sum_{i=1}^S a_i^2} \leq S$
+for positive quantities $a_i$. To see that 
+$1 \leq \frac{(\sum_{i=1}^S a_i)^2}{\sum_{i=1}^S a_i^2}$, note that
+\begin{align}
+\left(\sum_i a_i \right)^2 &= \sum_{i,j} a_i a_j \\
+ &= \sum_i a_i^2 + \sum_{i \neq j} a_i a_j \\
+ &\geq \sum_i a_i^2.
+\end{align}
+To show the other inequality, it suffices to show
+\begin{equation}
+\left( \sum_i a_i  \right)^2 \leq S \sum_i a_i^2.
+\end{equation}
+Dividing by $S^2$, this is
+\begin{equation}
+\left( \frac{\sum_i a_i}{S}  \right)^2 \leq  \frac{\sum_i a_i^2}{S},
+\end{equation}
+i.e., the square of a mean is less than or equal to the mean of squares.
+But that follows from Jensen's inequality.
+\end{proof}
+
+\bibliographystyle{plainnat}
+\bibliography{SuppMatBib.bib}
 
 \newpage
 \clearpage
 
-%\begin{landscape}
 \input{XTableResult.tex}
-%\end{landscape}
 
 % Figure
 \begin{figure}
