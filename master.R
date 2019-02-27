@@ -1,8 +1,11 @@
-#Workflow for the manuscript "Decomposition of the variance ratio illuminates 
-#timescale-specific population and community variability"
+#Workflow for the manuscript "A new variance ratio metric to detect the timescale of 
+#compensatory dynamics"
 #
 #Coded by Lei Zhao (lei.zhao@cau.edu.cn), Daniel Reuman (d294r143@ku.edu), 
 #Lauren Hallett (hallett@uoregon.edu), and Shaopeng Wang (shaopeng.wang@pku.edu.cn)
+#
+#There are additional authors that contributed to the manuscript itself but not to 
+#the codes here 
 #
 #See the README.md
 
@@ -12,20 +15,15 @@ rm(list=ls())
 #checkpoint package - when present, uses the package, sets up a local
 #installation of all packages as they existed on the date specified, in the
 #same directory as this file. 
-#library(checkpoint)
-#if (!dir.exists("./.checkpoint/")){
-#  dir.create("./.checkpoint/")
-#}
-#checkpoint("2019-01-01",checkpointLocation = "./")
+library(checkpoint)
+if (!dir.exists("./.checkpoint/")){
+  dir.create("./.checkpoint/")
+}
+checkpoint("2019-02-28",checkpointLocation = "./")
 
 #folder for figures
 dir.create("Figs", showWarnings = FALSE)   #create a folder to store the figs
 
-#install the tsvr package from github
-#library(devtools)
-#library(withr)
-#withr::with_libpaths(new=.libPaths()[1],
-#                     devtools::install_github(repo="reumandc/tsvr",ref="master",force=TRUE))
 library(tsvr)
 
 #####  Fig - timeseries of the pedagogical example  #####
