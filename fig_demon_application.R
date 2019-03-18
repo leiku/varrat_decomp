@@ -91,6 +91,13 @@ res <- Res[[1]][[2]]  #JRG
 
 i.chosen <- 15
 
+##output values of classic vr, CV2com and CV2com_ip
+vr.class <- res$vr[i.chosen, 3] 
+CV2com.class <- rowSums(Res[[1]][[1]][[2]])[i.chosen]
+CV2comnull.class <- rowSums(Res[[1]][[1]][[3]])[i.chosen]
+save(vr.class, CV2com.class, CV2comnull.class, file="JRGSinglePlotResults.RData")
+
+
 tiff("Figs/fig_demon_application2.tif", 
      width=11, height=3, units="in",res=600,compression = "lzw")
 op2<-par(mfrow=c(1,4),oma=c(0.5,0.5,0.5,0.5), mar=c(4,4,3,1),mgp=c(2,0.5,0),
@@ -106,6 +113,9 @@ points(res$vr[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('black','black'),cex=
 lines(res$vr[i.chosen, 1:2]~c(0.7,1.9),col='darkgray')
 text(1.3, 1.15, labels="synchronous", col="darkgray", cex=1.5)
 text(1.3, 0.85, labels="compensatory", col="darkgray", cex=1.5)
+text(0.7,max(res$vr[i.chosen, 1:2],na.rm=T)+0.15,
+     labels=bquote(italic(varphi)==~.(round(vr.class,4))),
+     adj=c(-0.1,0.5),cex=1.3)
 mtext("(a)", side=3, cex=1, line=-1.2, adj=0.05)
 
 barplot(res$comnull[i.chosen, 1:2],names.arg=c('Short','Long'),ylab=expression(paste(average~of~CV[com_ip]^2~(italic(sigma)))),border=F,
@@ -113,6 +123,9 @@ barplot(res$comnull[i.chosen, 1:2],names.arg=c('Short','Long'),ylab=expression(p
 #points(res$comnull[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('blue','red'),cex=2)
 points(res$comnull[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('black','black'),cex=2)
 lines(res$comnull[i.chosen, 1:2]~c(0.7,1.9),col='darkgray')
+text(0.65,max(res$comnull[i.chosen, 1:2])+0.05*diff(range(res$comnull[i.chosen, 1:2])),
+     labels=bquote(paste(CV[com_ip]^2,"=",.(round(CV2comnull.class,4)))),
+     adj=c(-0.05,0), cex=1.2)
 mtext("(b)", side=3, cex=1, line=-1.2, adj=0.05)
 
 barplot(res$com[i.chosen, 1:2],names.arg=c('Short','Long'),ylab=expression(paste(average~of~CV[com]^2~(italic(sigma)))),border=F,
@@ -120,6 +133,9 @@ barplot(res$com[i.chosen, 1:2],names.arg=c('Short','Long'),ylab=expression(paste
 #points(res$com[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('blue','red'),cex=2)
 points(res$com[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('black','black'),cex=2)
 lines(res$com[i.chosen, 1:2]~c(0.7,1.9),col='darkgray')
+text(0.65,max(res$comnull[i.chosen, 1:2])+0.05*diff(range(res$comnull[i.chosen, 1:2])),
+     labels=bquote(paste(CV[com]^2,"=",.(round(CV2com.class,4)))),
+     adj=c(-0.1,0), cex=1.2)
 mtext("(c)", side=3, cex=1, line=-1.2, adj=0.05)
 
 plot(log10(res$com[i.chosen, 1:2])~log10(res$comnull[i.chosen, 1:2]), xlim=c(-3.5,-1),ylim=c(-3.5,-1), xaxt="n", yaxt="n",#log='xy',
@@ -138,7 +154,7 @@ mtext("(d)", side=3, cex=1, line=-1.2, adj=0.05)
 #plot(NA, xaxt="n", yaxt="n", bty="n", xlim=c(0,1), ylim=c(0,1), xlab=NA, ylab=NA)
 #mtext("Artificial", side=2, line=-1.5, adj=0.82, cex=1.5)
 #mtext("Empirical", side=2, line=-1.5, adj=0.18, cex=1.5)
-par(op1)
+par(op2)
 
 dev.off()
 
