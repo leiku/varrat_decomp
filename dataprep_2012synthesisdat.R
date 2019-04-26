@@ -6,6 +6,36 @@ source("data_import.R")
 
 ## To get started use the old LTER synthesis
 
+# read in data another way
+dat2 <- read_csv_gdrive("0BwguSiR80XFZSnlSMWJWY1hVUTQ") 
+dat2<- dat2 %>%
+  tbl_df() %>%
+  # clean data
+  mutate(site = as.character(tolower((location))),
+         uniqueID = as.character(sitesubplot)) %>%
+  mutate(species = as.character(species)) %>%
+  select(site, uniqueID, species, year, abundance) %>%
+  # vasco caves has a few different oldSpecies for brmama, summarize
+  group_by(site, uniqueID, species, year) %>%
+  summarize(abundance = sum(abundance)) %>% 
+  tbl_df() %>%
+  group_by(site, uniqueID, species, year) 
+
+#read in data in a third way - this is the permanent way I am trying to shift to, see testing below
+dat3<-read.csv(file="http://pasta-s.lternet.edu/package/data/eml/edi/358/3/5a9c0695f6641848bc17fd8a43b6ec74",header=TRUE)
+dat3<- dat3 %>%
+  tbl_df() %>%
+  # clean data
+  mutate(site = as.character(tolower((location))),
+         uniqueID = as.character(sitesubplot)) %>%
+  mutate(species = as.character(species)) %>%
+  select(site, uniqueID, species, year, abundance) %>%
+  # vasco caves has a few different oldSpecies for brmama, summarize
+  group_by(site, uniqueID, species, year) %>%
+  summarize(abundance = sum(abundance)) %>% 
+  tbl_df() %>%
+  group_by(site, uniqueID, species, year) 
+
 # read in data
 dat <- read_csv_gdrive("0BwguSiR80XFZSnlSMWJWY1hVUTQ") %>%
   tbl_df() %>%
@@ -19,6 +49,15 @@ dat <- read_csv_gdrive("0BwguSiR80XFZSnlSMWJWY1hVUTQ") %>%
   summarize(abundance = sum(abundance)) %>% 
   tbl_df() %>%
   group_by(site, uniqueID, species, year) 
+
+#comparisons of the different ways
+class(dat)
+class(dat2)
+class(dat3)
+all.equal(dat,dat2)
+all.equal(dat,dat3)
+#once confirmed, delete ways 2 and 1, and you can probably also delete 
+#read_csv_gdrive from data_import.R
 
 # Make a list of sites with a list of species matrices
 # higher level list is each site
