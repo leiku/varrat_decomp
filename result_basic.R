@@ -64,7 +64,6 @@ for(i in 1:length(names.sites)){
 }
 saveRDS(Res, "result_basic.RDS")
 
-
 #get some summary results into a table
 snshort<-sitenames[c(4, 6, 3, 10, 7, 8)]
 Resn<-Res[1:6]
@@ -127,3 +126,34 @@ minvr<-min(allvr)
 maxvr<-max(allvr) 
 fraccomp<-sum(allvr<1)/length(allvr)
 save(minCVcom2,maxCVcom2,minCVcomip2,maxCVcomip2,allvr,minvr,maxvr,fraccomp,file="TextResults.RData")
+
+
+#more summary results for the main text
+long_comp<-c()
+long_sync<-c()
+long_tot<-c()
+short_comp<-c()
+short_sync<-c()
+short_tot<-c()
+for (counter in 1:length(Resn))
+{
+  long_comp[counter]<-sum(Resn[[counter]]$averaged$vr[,colnames(Resn[[counter]]$averaged$vr)=="long"]<1)
+  long_sync[counter]<-sum(Resn[[counter]]$averaged$vr[,colnames(Resn[[counter]]$averaged$vr)=="long"]>1)
+  long_tot[counter]<-dim(Resn[[counter]]$averaged$vr)[1]
+
+  short_comp[counter]<-sum(Resn[[counter]]$averaged$vr[,colnames(Resn[[counter]]$averaged$vr)=="short"]<1)
+  short_sync[counter]<-sum(Resn[[counter]]$averaged$vr[,colnames(Resn[[counter]]$averaged$vr)=="short"]>1)
+  short_tot[counter]<-dim(Resn[[counter]]$averaged$vr)[1]
+  
+}
+names(long_comp)<-names(Resn)
+names(long_sync)<-names(Resn)
+names(long_tot)<-names(Resn)
+names(short_comp)<-names(Resn)
+names(short_sync)<-names(Resn)
+names(short_tot)<-names(Resn)
+long_comp_all<-sum(long_comp)
+long_sync_all<-sum(long_sync)
+short_comp_all<-sum(short_comp)
+short_sync_all<-sum(short_sync)
+save(long_comp,long_sync,long_tot,short_comp,short_sync,short_tot,file="TextResults2.RData")
