@@ -33,7 +33,7 @@ library(tsvr)
 source("fig_example_timeseries.R")
 
 #####  get clean data #####
-#input: csv file from google drive
+#input: csv file from data archive
 #output: "Data_grassland.RDS", "SiteNames.RDS"
 source("dataprep_2012synthesisdat.R")
 
