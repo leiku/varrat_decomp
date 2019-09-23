@@ -91,11 +91,18 @@ res <- Res[[1]][[2]]  #JRG
 
 i.chosen <- 15
 
-##output values of classic vr, CV2com and CV2com_ip
+##output values of classic vr, CV2com and CV2com_ip, and corresponding p-values
 vr.class <- res$vr[i.chosen, 3] 
 CV2com.class <- rowSums(Res[[1]][[1]][[2]])[i.chosen]
 CV2comnull.class <- rowSums(Res[[1]][[1]][[3]])[i.chosen]
-save(vr.class, CV2com.class, CV2comnull.class, file="JRGSinglePlotResults.RData")
+
+### new added (p-values)
+Res.prop <- readRDS("result_shuffling_proportion.RDS")
+p.vr <- Res.prop[[1]][[3]][i.chosen]
+p.com <- Res.prop[[1]][[1]][i.chosen]
+p.comnull <- Res.prop[[1]][[2]][i.chosen]
+save(vr.class, CV2com.class, CV2comnull.class,
+     p.vr, p.com, p.comnull, file="JRGSinglePlotResults.RData")
 
 
 tiff("Figs/fig_demon_application2.tif", 
@@ -103,14 +110,19 @@ tiff("Figs/fig_demon_application2.tif",
 op2<-par(mfrow=c(1,4),oma=c(0.5,0.5,0.5,0.5), mar=c(4,4,3,1),mgp=c(2,0.5,0),
         tck=-.02,cex.axis=1.2,cex.lab=1.5,cex.main=1.5)
 
+###new added (choosing color by p)
+col.p <- function(pvalue){
+  if(pvalue > 0.05){
+    return("darkgray")
+  }else{return("black")}
+}
 
 barplot(res$vr[i.chosen, 1:2],names.arg=c('Short','Long'),ylab=expression(paste(weighted~average~of~italic(varphi)[ts]~(italic(sigma)))),border=F,
         xlab="timescale",ylim=c(0, 1.6),col=c('lightgray','lightgray')); 
 abline(h=1,lty=2,col="darkgray", lwd=2)
 abline(h=res$vr[i.chosen, 3], lty=1, col="black")
-#points(res$vr[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('blue','red'),cex=2)
 points(res$vr[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('black','black'),cex=2)
-lines(res$vr[i.chosen, 1:2]~c(0.7,1.9),col='darkgray')
+lines(res$vr[i.chosen, 1:2]~c(0.7,1.9),col=col.p(p.vr))
 text(1.3, 1.15, labels="synchronous", col="darkgray", cex=1.5)
 text(1.3, 0.85, labels="compensatory", col="darkgray", cex=1.5)
 text(0.7,max(res$vr[i.chosen, 1:2],na.rm=T)+0.15,
@@ -122,7 +134,7 @@ barplot(res$comnull[i.chosen, 1:2],names.arg=c('Short','Long'),ylab=expression(p
         xlab="timescale", ylim=c(0, 0.007),col=c('lightgray','lightgray'))
 #points(res$comnull[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('blue','red'),cex=2)
 points(res$comnull[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('black','black'),cex=2)
-lines(res$comnull[i.chosen, 1:2]~c(0.7,1.9),col='darkgray')
+lines(res$comnull[i.chosen, 1:2]~c(0.7,1.9), col=col.p(p.comnull))
 text(0.65,max(res$comnull[i.chosen, 1:2])+0.05*diff(range(res$comnull[i.chosen, 1:2])),
      labels=bquote(paste(CV[com_ip]^2,"=",.(round(CV2comnull.class,4)))),
      adj=c(-0.05,0), cex=1.2)
@@ -132,7 +144,7 @@ barplot(res$com[i.chosen, 1:2],names.arg=c('Short','Long'),ylab=expression(paste
         xlab="timescale", ylim=c(0, 0.007),col=c('lightgray','lightgray'))
 #points(res$com[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('blue','red'),cex=2)
 points(res$com[i.chosen, 1:2]~c(0.7,1.9),pch=c(15,16),col=c('black','black'),cex=2)
-lines(res$com[i.chosen, 1:2]~c(0.7,1.9),col='darkgray')
+lines(res$com[i.chosen, 1:2]~c(0.7,1.9), col=col.p(p.com))
 text(0.65,max(res$comnull[i.chosen, 1:2])+0.05*diff(range(res$comnull[i.chosen, 1:2])),
      labels=bquote(paste(CV[com]^2,"=",.(round(CV2com.class,4)))),
      adj=c(-0.1,0), cex=1.2)

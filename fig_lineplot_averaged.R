@@ -11,6 +11,8 @@ panlabs<-c("a","g","m","s",
 library(scales) # col: alpha
 library(normtest)
 Res <- readRDS("result_basic.RDS")
+Res.prop <- readRDS("result_shuffling_proportion.RDS")  #new added
+
 tiff("Figs/fig_lineplot_average.tif", 
      width=9, height=10, units="in",res=600,compression = "lzw")
 op <- par(mfrow=c(6,4),oma=c(3,1,1,3), mar=c(1,3.5,1,1),mgp=c(2.5,0.5,0))
@@ -31,6 +33,8 @@ for(i in 1:6){
   for(j in 1:3){
     x <- Res[[i]][[2]][[i.measure[j]]]
     x <- x[,c(1,2)]  # short, long
+    P <- Res.prop[[i]][[i.measure[j]]] #new added
+    
     z1<-jb.norm.test(x[,1]-x[,2])
     jbtest.jb[i,j]<-z1$statistic
     jbtest.p[i,j]<-z1$p.value
@@ -56,7 +60,7 @@ for(i in 1:6){
     xaxis.short <- c(0.1,0.2,0.2)
     xaxis.long <- c(0.7, 0.9, 0.9)
     for(t in 1:nrow(x)){
-      if(x[t,2]>=x[t,1]){lines(c(xaxis.short[j],xaxis.long[j]), x[t,], col=alpha("lightgrey",1))
+      if(P[t]>0.05){lines(c(xaxis.short[j],xaxis.long[j]), x[t,], col=alpha("lightgrey",1)) #modified
       }else{
         lines(c(xaxis.short[j],xaxis.long[j]), x[t,], col=alpha("black",0.9))}
       points(c(xaxis.short[j],xaxis.long[j]), x[t,], col=alpha(cols, 0.7), pch=1, cex=1.6)

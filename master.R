@@ -42,6 +42,12 @@ source("dataprep_2012synthesisdat.R")
 #output: "result_basic.RDS", "summary_table.RDS", "XTableResult.tex", "TextResults.RData"
 source("result_basic.R")
 
+##### get p-values from shuffling ######
+#input: "Data_grassland.RDS", "SiteNames.RDS"
+#output: "result_shuffling.RDS" (to store the result of 1000 simulations),
+#        "result_shuffling_proportion.RDS" (to store the p-values)
+source("result_shuffling.R")
+
 #####  Fig - demo for pedagog time series and for one plot  #####
 #input: "Data_example_timeseries.RDS", "result_basic.RDS"
 #output: "fig_demon_application.tif"
