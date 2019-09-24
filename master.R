@@ -15,11 +15,11 @@ rm(list=ls())
 #checkpoint package - when present, uses the package, sets up a local
 #installation of all packages as they existed on the date specified, in the
 #same directory as this file. 
-library(checkpoint)
-if (!dir.exists("./.checkpoint/")){
-  dir.create("./.checkpoint/")
-}
-checkpoint("2019-02-28",checkpointLocation = "./")
+#library(checkpoint)
+#if (!dir.exists("./.checkpoint/")){
+#  dir.create("./.checkpoint/")
+#}
+#checkpoint("2019-02-28",checkpointLocation = "./")
 
 #folder for figures
 dir.create("Figs", showWarnings = FALSE)   #create a folder to store the figs
