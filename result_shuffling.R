@@ -1,5 +1,3 @@
-#when i=1, s=21, negative values for vr
-
 rm(list=ls())
 set.seed(42)
 
@@ -43,24 +41,31 @@ for(i in 1:length(names.sites)){
   #1000 simulations of shuffling
   #re-organize for short-ts, long-ts, and all-ts averaged (weighted averaged for vr) values
   
-  TMP.com <- array(NA, c(length(X), 2, 1000))  #plot by timescale by replicates
+  TMP.com <- array(NA, c(length(X), 3, 1000))  #plot by timescale by replicates
   TMP.comnull <- TMP.com
   for(s in 1:1000){
     X.s <- lapply(X, shuffling, dim.shuf = 2)
     
-    res.ts <- lapply(X.s, cv2f, type="com")
-    ts <- 1/res.ts[[1]][[1]]
-    res.short <- lapply(res.ts,  function(XX){mean(XX$cv2[ts>4/3 & ts<4])})
-    res.long <- lapply(res.ts, function(XX){mean(XX$cv2[ts>=4 | ts<=4/3])}) #aggregation ts >= 4
-    TMP.com[,1,s] <- unlist(res.short)
-    TMP.com[,2,s] <- unlist(res.long)
+    res.ts <- lapply(X.s, tsvreq_classic)
+    ts <- res.ts[[1]][[1]]
+    res.long <- lapply(res.ts, aggts, ts=ts[ts >= 4]) #aggregation
+    res.short <- lapply(res.ts, aggts, ts=ts[ts < 4])
     
-    res.ts <- lapply(X.s, cv2f, type="comip")
-    ts <- 1/res.ts[[1]][[1]]
-    res.short <- lapply(res.ts,  function(XX){mean(XX$cv2[ts>4/3 & ts<4])})
-    res.long <- lapply(res.ts, function(XX){mean(XX$cv2[ts>=4 | ts<=4/3])}) #aggregation ts >= 4
-    TMP.comnull[,1,s] <- unlist(res.short)
-    TMP.comnull[,2,s] <- unlist(res.long)
+    for(j in 1:2){
+      tmp.short <- unlist(lapply(res.short,"[[", j))
+      tmp.long <- unlist(lapply(res.long,"[[", j))
+      tmp.all <- tmp.short + tmp.long
+      
+      n.short <- length(res.short[[1]][[4]]) #number of short timescales
+      n.long <- length(res.long[[1]][[4]])
+      n.all <- n.short + n.long
+      
+      tmp <- cbind(tmp.short/n.short, tmp.long/n.long, tmp.all/n.all)
+      colnames(tmp) <- c("short","long","all")
+      if(j == 1){TMP.com[,,s] <- tmp}else{
+        TMP.comnull[,,s] <- tmp
+      }
+    }
   }
   
   Res.ave <- vector("list", 3)
@@ -102,6 +107,7 @@ for(i in 1:length(Res.diff)){
     Res.prop[[i]][[j]] <- p
   }
 }
+
 saveRDS(Res.prop,"result_shuffling_proportion.RDS")
 
 
