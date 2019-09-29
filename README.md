@@ -21,7 +21,7 @@ R, and the checkpoint package. This codes uses the R `checkpoint` package. This 
 the master file `master.R` near the top, where you will find a line of code specifying a 
 date.
 
-    checkpoint("2019-02-28",checkpointLocation = "./")
+    checkpoint("2019-09-28",checkpointLocation = "./")
 
 The `checkpoint` package then automatically scans through code files looking for other 
 required R packages. It then downloads and installs the newest versions of those packages 
@@ -30,7 +30,7 @@ the same code that was originally used. This can take some time on first run (yo
 warned) but it is faster on subsequent runs because the packages are already installed. This 
 also means that R package dependencies should only be the `checkpoint` package, since that 
 package should scan for other packages and install them locally. Quite a few MB disk space 
-are used (200-300) to install all the packages locally as they existed on the date.
+are used (550-650) to install all the packages locally as they existed on the date.
 
 ## Dependencies for SuppMat.tex
 
