@@ -29,7 +29,7 @@ pchs <- rep(16, length(freqs))
 pchs[c(100,200)] <- 15
 plot(freqs,vrfs,type='p', xlim=rev(range(freqs)), xlab="timescale (years)",
      ylab=expression(paste(italic(varphi)[ts])~(italic(sigma))),xaxt='n',
-     ylim=c(0,max(vrfs,na.rm=T)),pch=pchs,cex=1.5)
+     ylim=c(0,max(vrfs,na.rm=T)),pch=pchs,cex=2)
 axis(side=1,at=xaxt,labels=xaxl)
 lines(c(0,1),c(1,1),lty='dashed')
 lines(c(.5,.5),c(0,max(vrfs, na.rm=T)),lty='dotted')
