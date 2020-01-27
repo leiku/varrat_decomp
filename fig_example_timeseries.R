@@ -24,7 +24,7 @@ saveRDS(s.all, "Data_example_timeseries.RDS")
 #***have a look at 'em
 tiff("Figs/fig_example_timeseries.tif", 
      width=3.5, height=7, units="in",res=600,compression = "lzw")
-op<-par(mfrow=c(3,1),oma=c(1,0.5,0,0), mar=c(3,3.5,1,1),mgp=c(2.2,0.5,0), cex.lab=1.2)
+op<-par(mfrow=c(3,1),oma=c(1,0.5,0,0), mar=c(3.5,3.5,1,1),mgp=c(2.2,0.5,0), cex.lab=1.2)
 
 #plot the aggregate time series
 pl<-20
@@ -46,7 +46,7 @@ mtext("(b)",3,cex=0.8,adj=0.02,line=-1.2)
 
 #plot the asynchronous components
 plot(t[1:pl],s2[1:pl,1],type='l',col=rainbow(length(phi))[1],
-     xlab="time",ylab="pop. component",
+     xlab="years",ylab="pop. component",
      ylim=c(min(s1,s2),max(s1,s2)+0.1))
 for (counter in 2:length(phi))
 {

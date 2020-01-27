@@ -25,9 +25,11 @@ xaxl<- c('10','3','2','1.5','1.1')
 topfact<-1.2
 
 #plot the frequency specific vr
-plot(freqs,vrfs,type='p', xlim=rev(range(freqs)), xlab="timescale",
+pchs <- rep(16, length(freqs))
+pchs[c(100,200)] <- 15
+plot(freqs,vrfs,type='p', xlim=rev(range(freqs)), xlab="timescale (years)",
      ylab=expression(paste(italic(varphi)[ts])~(italic(sigma))),xaxt='n',
-     ylim=c(0,max(vrfs,na.rm=T)),pch=16,cex=1.5)
+     ylim=c(0,max(vrfs,na.rm=T)),pch=pchs,cex=1.5)
 axis(side=1,at=xaxt,labels=xaxl)
 lines(c(0,1),c(1,1),lty='dashed')
 lines(c(.5,.5),c(0,max(vrfs, na.rm=T)),lty='dotted')
@@ -41,7 +43,7 @@ mtext("(a)",3,cex=1,adj=0.02,line=-1.2)
 
 #plot CVcomip^2
 plot(freqs,res.ts$comnull, type='l',
-     xlim=rev(range(freqs)), xlab="timescale",
+     xlim=rev(range(freqs)), xlab="timescale (years)",
      ylim=c(0,topfact*max(res.ts$comnull)),ylab=expression(paste(CV[com_ip]^2,(italic(sigma)))),xaxt='n')
 axis(side=1,at=xaxt,labels=xaxl)
 lines(c(.5,.5),c(0,topfact*max(res.ts$comnull)),lty='dotted')
@@ -53,7 +55,7 @@ mtext("(b)",3,cex=1,adj=0.02,line=-1.2)
 
 #plot CVcom
 plot(freqs,res.ts$com,type='l',  
-     xlim=rev(range(freqs)), xlab="timescale",
+     xlim=rev(range(freqs)), xlab="timescale (years)",
      ylim=c(0,topfact*max(res.ts$com)),ylab=expression(paste(CV[com]^2,(italic(sigma)))),xaxt='n')
 axis(side=1,at=xaxt,labels=xaxl)
 lines(c(.5,.5),c(0,topfact*max(res.ts$com)),lty='dotted')
