@@ -13,7 +13,7 @@ library(normtest)
 Res <- readRDS("result_basic.RDS")
 Res.prop <- readRDS("result_shuffling_proportion.RDS")  #new added
 
-tiff("Figs/fig_lineplot_average.tif", 
+tiff("Figs/fig5_lineplot_average.tif", 
      width=9, height=10, units="in",res=600,compression = "lzw")
 op <- par(mfrow=c(6,4),oma=c(3,1,1,3), mar=c(1,3.5,1,1),mgp=c(2.5,0.5,0))
 

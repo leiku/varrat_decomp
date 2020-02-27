@@ -29,7 +29,7 @@ library(tsvr)
 
 #####  Fig - timeseries of the pedagogical example  #####
 #input: null
-#output: "fig_example_timeseries.tif"
+#output: "fig1_example_timeseries.tif"
 #        "Data_example_timeseries.RDS"
 source("fig_example_timeseries.R")
 
@@ -51,12 +51,12 @@ source("result_shuffling.R")
 
 #####  Fig - demo for pedagog time series and for one plot  #####
 #input: "Data_example_timeseries.RDS", "result_basic.RDS"
-#output: "fig_demon_application.tif"
+#output: "fig3_demon_application1.tif", "fig4_demon_application2.tif"
 source("fig_demon_application.R")
 
-#####  Fig - lineplot for values averaged across short- and long-timescales  #####
+#####  Fig5 - lineplot for values averaged across short- and long-timescales  #####
 #input: "result_basic.RDS"
-#output: "fig_lineplot_average.tif"
+#output: "fig5_lineplot_average.tif"
 source("fig_lineplot_averaged.R")
 
 #####  Fig - quantile plot for timescale-specific variance ratio  #####

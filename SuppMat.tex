@@ -7,6 +7,12 @@
 \usepackage[top=1.25cm, bottom=1.25cm, left=1.25cm, right=1.25cm]{geometry}
 \usepackage{amsthm}
 \usepackage{lscape}
+\usepackage{authblk}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{ }
+\rhead{Ecosphere}
 
 \newcommand{\var}{{\operatorname{var}}}
 \newcommand{\cov}{{\operatorname{cov}}}
@@ -33,12 +39,34 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{definition}[theorem]{Definition}
 
-\begin{document}
-
 \title{Appendices for: A new variance ratio metric to detect the timescale of compensatory dynamics}
-\author{Zhao, Wang, Hallett, Rypel, Sheppard, Castorani, Shoemaker, Cottingham, Suding, Reuman}
+\author[1,2]{Lei Zhao\thanks{lei.zhao@cau.edu.cn}}
+\author[3]{Shaopeng Wang}
+\author[4]{Lauren M. Hallett}
+\author[5]{Andrew L. Rypel}
+\author[2]{Lawrence W. Sheppard}
+\author[6]{Max C.N. Castorani}
+\author[7]{Lauren G. Shoemaker}
+\author[8]{Kathryn L. Cottingham}
+\author[9]{Katharine Suding}
+\author[2,10]{Daniel C. Reuman\thanks{reuman@ku.edu}}
+\affil[1]{Beijing Key Laboratory of Biodiversity and Organic Farming, College of Resources and Environmental Sciences, China Agricultural University, Beijing 100193, China}
+\affil[2]{Department of Ecology and Evolutionary Biology and Kansas Biological Survey, University of Kansas, Higuchi Hall, 2101 Constant Ave, Lawrence, KS 66047, USA}
+\affil[3]{Department of Ecology, College of Urban and Environmental Science, and Key Laboratory for Earth Surface Processes of the Ministry of Education, Peking University, Beijing 100080, China}
+\affil[4]{Environmental Studies Program and Department of Biology, University of Oregon, Eugene, OR 97403, USA}
+\affil[5]{Department of Wildlife, Fish, and Conservation Biology, University of California Davis, Davis, CA 95616, USA}
+\affil[6]{Department of Environmental Sciences, University of Virginia, Charlottesville, VA 22904, USA}
+\affil[7]{Botany Department, University of Wyoming, Laramie, WY, 82071, USA}
+\affil[8]{Department of Biological Sciences, Dartmouth College, Hanover, NH 03755, USA}
+\affil[9]{Department of Ecology and Evolution Biology, University of Colorado, Boulder, CO, 80303, USA}
+\affil[10]{Laboratory of Populations, Rockefeller University, 1230 York Ave, New York, NY, 10065, USA}
+
 \date{}
+
+
+\begin{document}
 \maketitle
+\thispagestyle{fancy}
 
 \section{Basics of Fourier methods}\label{sec:spec}
 \noindent If $x_i(t)$ is a population abundance measurement for taxon $i$ 
@@ -303,7 +331,7 @@ But that follows from Jensen's inequality.
 \end{proof}
 
 \bibliographystyle{plainnat}
-\bibliography{SuppMatBib.bib}
+\bibliography{SuppMatBib}
 
 \newpage
 \clearpage
