@@ -2,8 +2,8 @@
 rm(list=ls())
 
 tiff("Figs/fig3_demon_application1.tif", 
-     width=11, height=3, units="in",res=600,compression = "lzw")
-op1<-par(mfrow=c(1,4),oma=c(0.5,0.5,0.5,0.5), mar=c(4,4,3,1),mgp=c(2,0.5,0),
+     width=7, height=7, units="in",res=600,compression = "lzw")
+op1<-par(mfrow=c(2,2),oma=c(0.5,0.5,0.5,0.5), mar=c(5,5,1,1),mgp=c(2.5,0.5,0),
         tck=-.02,cex.axis=1.4,cex.lab=1.6,cex.main=1.5)
 
 
@@ -47,7 +47,7 @@ plot(freqs,res.ts$comnull, type='l',
 axis(side=1,at=xaxt,labels=xaxl)
 lines(c(.5,.5),c(0,topfact*max(res.ts$comnull)),lty='dotted')
 rect(2,-max(res.ts$comnull), 0.5,2*max(res.ts$comnull),density=NA,col=rgb(0,0,0,alpha=0.2))
-text(0.6,max(res.ts$comnull)+0.05*diff(range(res.ts$comnull)),
+text(0.65,max(res.ts$comnull)+0.05*diff(range(res.ts$comnull)),
      labels=bquote(paste(CV[com_ip]^2,"=",.(round(res.class$comnull,4)))),
      adj=c(-0.05,0), cex=1.4)
 mtext("(b)",3,cex=1.1,adj=0.02,line=-1.2)
